@@ -62,7 +62,7 @@ function submitDate() {
   const endDate = document.querySelector(".end-date").value;
   // endDateFormat = endDate;
 
-  fetch("http://localhost:3000/patchNotes", {
+  fetch("/patchNotes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -142,7 +142,7 @@ async function loadWoWPatchNotes(url) {
   });
 }
 async function loadHSPatchNotes() {
-  const res = await fetch("patchNotesHS");
+  const res = await fetch("/patchNotesHS");
   const patchNotes = await res.json();
   hs.classList.remove("animate");
 
