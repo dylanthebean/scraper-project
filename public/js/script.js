@@ -96,7 +96,7 @@ function newEl(type, attrs = {}) {
 }
 
 async function loadLoLPatchNotes(url) {
-  const res = await fetch("http://localhost:3000/patchNotesLoL");
+  const res = await fetch("/patchNotesLoL");
   const patchNotes = await res.json();
   lol.classList.remove("animate");
 
@@ -119,7 +119,7 @@ async function loadLoLPatchNotes(url) {
   });
 }
 async function loadWoWPatchNotes(url) {
-  const res = await fetch("http://localhost:3000/patchNotesWoW");
+  const res = await fetch("/patchNotesWoW");
   const patchNotes = await res.json();
   wow.classList.remove("animate");
 
@@ -142,7 +142,7 @@ async function loadWoWPatchNotes(url) {
   });
 }
 async function loadHSPatchNotes() {
-  const res = await fetch("http://localhost:3000/patchNotesHS");
+  const res = await fetch("patchNotesHS");
   const patchNotes = await res.json();
   hs.classList.remove("animate");
 
