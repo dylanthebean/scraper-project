@@ -89,12 +89,12 @@ app.get("/patchNotesHS", async (req, res) => {
 //   res.send(result);
 // });
 
-app.post("/patchNotes", async (req, res) => {
+app.post("/", async (req, res) => {
   endDate = req.body.endDate;
 
   res.send("success");
 });
 
 app.listen(port, () => {
-  console.log(port);
+  console.log(`Example app listening at http://localhost:${port}`);
 });

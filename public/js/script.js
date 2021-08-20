@@ -62,7 +62,7 @@ function submitDate() {
   const endDate = document.querySelector(".end-date").value;
   // endDateFormat = endDate;
 
-  fetch("/patchNotes", {
+  fetch("/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
