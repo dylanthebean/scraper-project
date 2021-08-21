@@ -39,7 +39,7 @@ app.get("/patchNotesLoL", async (req, res) => {
     return p.date > ed;
   });
 
-  res.render("patchNotesLoL", result);
+  res.send(result);
 });
 
 app.get("/patchNotesWoW", async (req, res) => {
@@ -53,7 +53,7 @@ app.get("/patchNotesWoW", async (req, res) => {
     return p.date > ed;
   });
 
-  res.render("patchNotesWoW", result);
+  res.send(result);
 });
 
 app.get("/patchNotesHS", async (req, res) => {
@@ -67,7 +67,7 @@ app.get("/patchNotesHS", async (req, res) => {
     return p.date > ed;
   });
 
-  res.render("patchNotesLoL", result);
+  res.send(result);
 });
 
 // app.get("/patchNotesOW", async (req, res) => {
