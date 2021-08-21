@@ -16,4 +16,4 @@ run :
 ```
 for both client and server side to start the development server
 
-## [Live Site](https://web-scraper-project.herokuapp.com/)
+### [Live Site](https://web-scraper-project.herokuapp.com/)
