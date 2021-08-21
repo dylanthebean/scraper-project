@@ -2,7 +2,10 @@ const puppeteer = require("puppeteer");
 const scrollPageToBottom = require("puppeteer-autoscroll-down");
 
 async function scrapeLeaguePatches(url) {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox"],
+  });
   const page = await browser.newPage();
   await page.goto(url, {
     waitUntil: "networkidle0",
@@ -66,7 +69,10 @@ async function scrapeLeaguePatches(url) {
 }
 
 async function scrapeWarcraftPatches(url) {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox"],
+  });
   const page = await browser.newPage();
   await page.setViewport({ width: 1300, height: 1000 });
   await page.goto(url, {
@@ -115,7 +121,10 @@ async function scrapeWarcraftPatches(url) {
 }
 
 async function scrapeHeartstonePatches(url) {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox"],
+  });
   const page = await browser.newPage();
   await page.goto(url, {
     waitUntil: "networkidle0",
