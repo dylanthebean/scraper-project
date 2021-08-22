@@ -22,6 +22,8 @@ async function scrapeLeaguePatches(url) {
     );
   }
 
+  await page.waitForTimeout(2500);
+
   const els = await page.$$("ol li");
 
   const patchNotes = [];
@@ -72,6 +74,8 @@ async function scrapeWarcraftPatches(url) {
   }
 
   await scrollPageToBottom(page);
+
+  await page.waitForTimeout(2500);
 
   const els = await page.$$(
     "#main > div > div.Pane-content > div > div.Pane-content > div > div.padding-bottom-huge > div.List--vertical.List--separatorAll.List--full > div > div > div > div"
@@ -126,41 +130,7 @@ async function scrapeHeartstonePatches(url) {
     );
   }
 
-  // await scrollPageToBottom(page);
-
-  // await page.click(
-  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
-  // );
-
-  // await scrollPageToBottom(page);
-
-  // await page.click(
-  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
-  // );
-
-  // await scrollPageToBottom(page);
-
-  // await page.click(
-  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
-  // );
-
-  // await scrollPageToBottom(page);
-
-  // await page.click(
-  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
-  // );
-
-  // await scrollPageToBottom(page);
-
-  // await page.click(
-  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
-  // );
-
-  // await scrollPageToBottom(page);
-
-  // await page.click(
-  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
-  // );
+  await page.waitForTimeout(2500);
 
   const els = await page.$$("a.ArticleListItem");
 
