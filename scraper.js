@@ -11,37 +11,16 @@ async function scrapeLeaguePatches(url) {
     waitUntil: "networkidle0",
   });
 
-  await page.click(
-    "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
-  );
-  await page.waitForTimeout(500);
-  await page.click(
-    "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
-  );
-  await page.waitForTimeout(500);
-  await page.click(
-    "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
-  );
-  await page.waitForTimeout(500);
-  await page.click(
-    "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
-  );
-  await page.waitForTimeout(500);
-  await page.click(
-    "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
-  );
-  await page.waitForTimeout(500);
-  await page.click(
-    "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
-  );
-  await page.waitForTimeout(500);
-  await page.click(
-    "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
-  );
-  await page.waitForTimeout(500);
-  await page.click(
-    "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
-  );
+  // loops while next page button exists
+  while (
+    (await page.click(
+      "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
+    )) !== null
+  ) {
+    await page.click(
+      "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
+    );
+  }
 
   const els = await page.$$("ol li");
 
@@ -79,23 +58,24 @@ async function scrapeWarcraftPatches(url) {
     waitUntil: "networkidle0",
   });
 
-  await page.evaluate((_) => {
-    window.scrollTo(0, 0);
-  });
+  // loops while next page button exists
+  while (
+    (await page.click(
+      "#main > div > div.Pane-content > div > div.Pane-content > div > div.align-right > div > div:nth-child(2) > a > div > div > div"
+    )) === !null
+  ) {
+    await scrollPageToBottom(page);
 
-  await scrollPageToBottom(page);
-
-  await page.click(
-    "#main > div > div.Pane-content > div > div.Pane-content > div > div.align-right > div > div:nth-child(2) > a > div > div > div"
-  );
+    await page.click(
+      "#main > div > div.Pane-content > div > div.Pane-content > div > div.align-right > div > div:nth-child(2) > a > div > div > div"
+    );
+  }
 
   await scrollPageToBottom(page);
 
   const els = await page.$$(
     "#main > div > div.Pane-content > div > div.Pane-content > div > div.padding-bottom-huge > div.List--vertical.List--separatorAll.List--full > div > div > div > div"
   );
-
-  // console.log(els);
 
   const patchNotes = [];
 
@@ -130,40 +110,59 @@ async function scrapeHeartstonePatches(url) {
     waitUntil: "networkidle0",
   });
 
-  await page.evaluate((_) => {
-    window.scrollTo(0, 0);
-  });
+  // await page.evaluate((_) => {
+  //   window.scrollTo(0, 0);
+  // });
 
-  await scrollPageToBottom(page);
+  while (
+    (await page.click(
+      "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
+    )) === !null
+  ) {
+    await scrollPageToBottom(page);
 
-  await page.click(
-    "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
-  );
-
-  await scrollPageToBottom(page);
-  // await page.waitForTimeout(500);
-  await page.click(
-    "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
-  );
-
-  await scrollPageToBottom(page);
-  // await page.waitForTimeout(500);
-  await page.click(
-    "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
-  );
-
-  await scrollPageToBottom(page);
-  // await page.waitForTimeout(500);
-  await page.click(
-    "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
-  );
+    await page.click(
+      "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
+    );
+  }
 
   // await scrollPageToBottom(page);
-  // await page.waitForTimeout(500);
+
+  // await page.click(
+  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
+  // );
+
+  // await scrollPageToBottom(page);
+
+  // await page.click(
+  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
+  // );
+
+  // await scrollPageToBottom(page);
+
+  // await page.click(
+  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
+  // );
+
+  // await scrollPageToBottom(page);
+
+  // await page.click(
+  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
+  // );
+
+  // await scrollPageToBottom(page);
+
+  // await page.click(
+  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
+  // );
+
+  // await scrollPageToBottom(page);
+
+  // await page.click(
+  //   "#NewsHome > div > div.ContentSection > div.NewsHomeApp__LoadMoreContainer-sc-1f4x52y-4.jEyIwT > button"
+  // );
 
   const els = await page.$$("a.ArticleListItem");
-
-  // console.log(els);
 
   const patchNotes = [];
 
@@ -181,8 +180,6 @@ async function scrapeHeartstonePatches(url) {
 
     patchNotes.push({ title: h2, img: img, link: link, date: date });
   }
-
-  // console.log(patchNotes);
 
   browser.close();
 
@@ -245,8 +242,6 @@ async function scrapeHeartstonePatches(url) {
 
 //   return { patchNotes };
 // }
-
-// scrapePatches("https://euw.leagueoflegends.com/en-gb/news/tags/patch-notes");
 
 module.exports = {
   scrapeLeaguePatches,

@@ -9,8 +9,6 @@ let iswow = false;
 let ishs = false;
 // let isow = false;
 
-// let endDateFormat;
-
 lol.addEventListener("click", () => {
   wow.classList.add("hide");
   hs.classList.add("hide");
@@ -60,7 +58,6 @@ function startAnimate() {
 
 function submitDate() {
   const endDate = document.querySelector(".end-date").value;
-  // endDateFormat = endDate;
 
   fetch("/", {
     method: "POST",
@@ -77,7 +74,6 @@ function submitDate() {
     loadWoWPatchNotes("https://worldofwarcraft.com");
   }
   if (ishs) {
-    // loadHSPatchNotes("https://playhearthstone.com/");
     loadHSPatchNotes();
   }
   // if (isow) {
@@ -151,9 +147,6 @@ async function loadHSPatchNotes() {
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
     const title = newEl("h4", { innerText: patch.title });
-    // const link = newEl("a", {
-    //   href: `${url}${patch.link}`,
-    // });
     const link = newEl("a", {
       href: patch.link,
     });

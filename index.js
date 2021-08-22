@@ -33,10 +33,10 @@ app.get("/patchNotesLoL", async (req, res) => {
     "https://euw.leagueoflegends.com/en-gb/news/tags/patch-notes"
   );
 
-  const result = patchNotes.patchNotes.filter((p) => {
+  const result = patchNotes.patchNotes.filter((patch) => {
     const ed = new Date(endDate);
 
-    return p.date > ed;
+    return patch.date > ed;
   });
 
   res.send(result);
@@ -47,10 +47,10 @@ app.get("/patchNotesWoW", async (req, res) => {
     "https://worldofwarcraft.com/en-us/content-update-notes"
   );
 
-  const result = patchNotes.patchNotes.filter((p) => {
+  const result = patchNotes.patchNotes.filter((patch) => {
     const ed = new Date(endDate);
 
-    return p.date > ed;
+    return patch.date > ed;
   });
 
   res.send(result);
@@ -61,10 +61,10 @@ app.get("/patchNotesHS", async (req, res) => {
     "https://playhearthstone.com/en-us/news/patchnotes"
   );
 
-  const result = patchNotes.patchNotes.filter((p) => {
+  const result = patchNotes.patchNotes.filter((patch) => {
     const ed = new Date(endDate);
 
-    return p.date > ed;
+    return patch.date > ed;
   });
 
   res.send(result);
@@ -80,10 +80,10 @@ app.get("/patchNotesHS", async (req, res) => {
 //     // `https://playoverwatch.com/en-gb/news/patch-notes/live`
 //   );
 
-//   const result = patchNotes.patchNotes.filter((p) => {
+//   const result = patchNotes.patchNotes.filter((patch) => {
 //     const ed = new Date(endDate);
 
-//     return p.date > ed;
+//     return patch.date > ed;
 //   });
 
 //   res.send(result);
