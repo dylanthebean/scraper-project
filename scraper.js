@@ -15,7 +15,7 @@ async function scrapeLeaguePatches(url) {
   while (
     (await page.click(
       "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
-    )) !== null
+    )) === !null
   ) {
     await page.click(
       "#gatsby-focus-wrapper > div > div.style__Wrapper-sc-7ydx7k-0.style__ResponsiveWrapper-sc-7ydx7k-6.excAFi > div > div.style__LoadMoreContainer-sc-7ydx7k-4.xurKg > button"
