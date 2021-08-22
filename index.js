@@ -28,13 +28,19 @@ app.get("/", function (req, res) {
   res.render("index");
 });
 
+app.post("/", async (req, res) => {
+  endDate = req.body.endDate;
+
+  res.send("success");
+});
+
 app.get("/patchNotesLoL", async (req, res) => {
   const patchNotes = await scraper.scrapeLeaguePatches(
     "https://euw.leagueoflegends.com/en-gb/news/tags/patch-notes"
   );
 
   const result = patchNotes.patchNotes.filter((patch) => {
-    const ed = new Date(endDate);
+    let ed = new Date(endDate);
 
     return patch.date > ed;
   });
@@ -48,7 +54,7 @@ app.get("/patchNotesWoW", async (req, res) => {
   );
 
   const result = patchNotes.patchNotes.filter((patch) => {
-    const ed = new Date(endDate);
+    let ed = new Date(endDate);
 
     return patch.date > ed;
   });
@@ -62,7 +68,7 @@ app.get("/patchNotesHS", async (req, res) => {
   );
 
   const result = patchNotes.patchNotes.filter((patch) => {
-    const ed = new Date(endDate);
+    let ed = new Date(endDate);
 
     return patch.date > ed;
   });
@@ -88,12 +94,6 @@ app.get("/patchNotesHS", async (req, res) => {
 
 //   res.send(result);
 // });
-
-app.post("/", async (req, res) => {
-  endDate = req.body.endDate;
-
-  res.send("success");
-});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

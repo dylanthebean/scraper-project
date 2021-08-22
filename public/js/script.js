@@ -96,7 +96,8 @@ async function loadLoLPatchNotes(url) {
   const patchNotes = await res.json();
   lol.classList.remove("animate");
 
-  const ctr = document.querySelector(".card-container");
+  const container = document.querySelector(".card-container");
+  container.innerHTML = "";
 
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
@@ -111,7 +112,7 @@ async function loadLoLPatchNotes(url) {
     link.appendChild(img);
     card.appendChild(title);
     card.appendChild(link);
-    ctr.appendChild(card);
+    container.appendChild(card);
   });
 }
 async function loadWoWPatchNotes(url) {
@@ -119,7 +120,8 @@ async function loadWoWPatchNotes(url) {
   const patchNotes = await res.json();
   wow.classList.remove("animate");
 
-  const ctr = document.querySelector(".card-container");
+  const container = document.querySelector(".card-container");
+  container.innerHTML = "";
 
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
@@ -134,7 +136,7 @@ async function loadWoWPatchNotes(url) {
     link.appendChild(img);
     card.appendChild(title);
     card.appendChild(link);
-    ctr.appendChild(card);
+    container.appendChild(card);
   });
 }
 async function loadHSPatchNotes() {
@@ -142,7 +144,8 @@ async function loadHSPatchNotes() {
   const patchNotes = await res.json();
   hs.classList.remove("animate");
 
-  const ctr = document.querySelector(".card-container");
+  const container = document.querySelector(".card-container");
+  container.innerHTML = "";
 
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
@@ -157,7 +160,7 @@ async function loadHSPatchNotes() {
     link.appendChild(img);
     card.appendChild(title);
     card.appendChild(link);
-    ctr.appendChild(card);
+    container.appendChild(card);
   });
 }
 // async function loadOWPatchNotes(url) {
@@ -167,7 +170,7 @@ async function loadHSPatchNotes() {
 //   const patchNotes = await res.json();
 //   console.log(patchNotes);
 
-//   const ctr = document.querySelector(".card-container");
+//   const container = document.querySelector(".card-container");
 
 //   patchNotes.forEach((patch) => {
 //     const card = newEl("div", { class: "card" });
@@ -182,6 +185,6 @@ async function loadHSPatchNotes() {
 //     link.appendChild(img);
 //     card.appendChild(title);
 //     card.appendChild(link);
-//     ctr.appendChild(card);
+//     container.appendChild(card);
 //   });
 // }
