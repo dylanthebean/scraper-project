@@ -4,6 +4,11 @@ const wow = document.querySelector(".wow");
 const hs = document.querySelector(".hs");
 const ow = document.querySelector(".ow");
 const tips = document.querySelector(".tips-container");
+const question = document.querySelector(".question");
+const chosenGame = document.querySelector(".chosen-game");
+const logoCard = document.querySelector(".logo-container__card");
+const logoContainer = document.querySelector(".logo-container");
+const pLogo = document.querySelector(".p-logo");
 
 let lolLoadingTips = [
   "You can place Wards and drink Potions while channeling a spell, such as Recall.",
@@ -36,36 +41,36 @@ let isLoading = false;
 let islol = false;
 let iswow = false;
 let ishs = false;
-// let isow = false;
+let isow = false;
 
 lol.addEventListener("click", () => {
   wow.classList.add("hide");
   hs.classList.add("hide");
-  // ow.classList.add("hide");
+  ow.classList.add("hide");
   datePicker.classList.remove("hide");
   islol = true;
 });
 wow.addEventListener("click", () => {
   lol.classList.add("hide");
   hs.classList.add("hide");
-  // ow.classList.add("hide");
+  ow.classList.add("hide");
   datePicker.classList.remove("hide");
   iswow = true;
 });
 hs.addEventListener("click", () => {
   wow.classList.add("hide");
   lol.classList.add("hide");
-  // ow.classList.add("hide");
+  ow.classList.add("hide");
   datePicker.classList.remove("hide");
   ishs = true;
 });
-// ow.addEventListener("click", () => {
-//   wow.classList.add("hide");
-//   hs.classList.add("hide");
-//   lol.classList.add("hide");
-//   datePicker.classList.remove("hide");
-//   isow = true;
-// });
+ow.addEventListener("click", () => {
+  wow.classList.add("hide");
+  hs.classList.add("hide");
+  lol.classList.add("hide");
+  datePicker.classList.remove("hide");
+  isow = true;
+});
 
 datePicker.addEventListener("change", () => {
   submitDate();
