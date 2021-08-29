@@ -12,6 +12,10 @@ const logoContainer = document.querySelector(".logo-container");
 const pLogo = document.querySelector(".p-logo");
 const banner = document.querySelector(".banner");
 const overlay = document.querySelector(".overlay");
+const errorMsg = document.querySelector(".error-prompt");
+
+let owImgs = ["ow1.jpeg", "ow2.jpg", "ow3.png"];
+let owNum = Math.floor(Math.random() * 3);
 
 let lolLoadingTips = [
   "You can place Wards and drink Potions while channeling a spell, such as Recall.",
@@ -37,8 +41,18 @@ let hsLoadingTips = [
   "If you run out of quests, come back tomorrow for a new one!",
   "Play Hearthstone on the phone, tablet and computer. Use the same card collection on all three!",
 ];
+let owLoadingTips = [
+  "Team composition matters! A well rounded team increases your chance of winning.",
+  "Offense heroes are flexible and mobile threats, capable of engaging enemies in any situation.",
+  "When low on health, disengage and use the health packs located around the map.",
+  "Use the side passages and objects in the map to conceal your location and movement from the enemy.",
+  "Tank heroes excel at taking and holding map objectives, as well as disrupting the enemy team.",
+  "Look out for enemies trying to flank you from behind or above.",
+];
 
 let randNum = Math.floor(Math.random() * 6);
+let endDate;
+let endDateFormat;
 
 let isLoading = false;
 let islol = false;
@@ -88,10 +102,18 @@ ow.addEventListener("click", () => {
 });
 
 datePicker.addEventListener("change", () => {
+  endDate = document.querySelector(".end-date").value;
+
+  if (new Date(endDate).getDate() >= new Date().getDate())
+    errorMsg.classList.remove("hide");
+
+  if (new Date(endDate) >= new Date()) return;
+
+  errorMsg.style.visibility = "hidden";
+
   submitDate();
   startAnimate();
   datePicker.classList.add("hide");
-  // pLogo.classList.add("hide");
   tipsBottom.classList.remove("hide");
   question.classList.add("hide");
   overlay.classList.add("hide");
@@ -126,10 +148,16 @@ function startAnimate() {
     tipsBottom.innerHTML = "";
     tipsBottom.appendChild(tip);
   }
+  if (isow) {
+    ow.classList.add("animate");
+    let tip = newEl("p", { innerText: owLoadingTips[randNum] });
+    tipsBottom.innerHTML = "";
+    tipsBottom.appendChild(tip);
+  }
 }
 
 function submitDate() {
-  const endDate = document.querySelector(".end-date").value;
+  endDate = document.querySelector(".end-date").value;
 
   fetch("/", {
     method: "POST",
@@ -148,9 +176,9 @@ function submitDate() {
   if (ishs) {
     loadHSPatchNotes();
   }
-  // if (isow) {
-  //   loadOWPatchNotes("https://playoverwatch.com/en-gb/news/patch-notes/live");
-  // }
+  if (isow) {
+    loadOWPatchNotes("https://playoverwatch.com/en-gb/news/patch-notes/live");
+  }
 }
 
 async function loadLoLPatchNotes(url) {
@@ -206,6 +234,11 @@ async function loadLoLPatchNotes(url) {
     tipsTop.style.transform = "translateY(6rem)";
   }
 
+  if (patchNotes.length === 0) {
+    tipsTop.style.transform = "translateY(5rem)";
+    tipsTop.innerHTML = "<p>You've missed no patches since you left<p>";
+  }
+
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
     const title = newEl("h4", { class: "title", innerText: patch.title });
@@ -233,7 +266,6 @@ async function loadWoWPatchNotes(url) {
   tipsBottom.classList.add("hide");
   tipsTop.classList.remove("hide");
   pLogo.classList.add("hide");
-  // tips.remove();
 
   banner.classList.remove("hide");
   banner.innerHTML = `
@@ -275,6 +307,11 @@ async function loadWoWPatchNotes(url) {
 
   if (patchNotes.length === 1) {
     tipsTop.style.transform = "translateY(6rem)";
+  }
+
+  if (patchNotes.length === 0) {
+    tipsTop.style.transform = "translateY(5rem)";
+    tipsTop.innerHTML = "<p>You've missed no patches since you left<p>";
   }
 
   patchNotes.forEach((patch) => {
@@ -348,6 +385,11 @@ async function loadHSPatchNotes() {
     tipsTop.style.transform = "translateY(6rem)";
   }
 
+  if (patchNotes.length === 0) {
+    tipsTop.style.transform = "translateY(5rem)";
+    tipsTop.innerHTML = "<p>You've missed no patches since you left<p>";
+  }
+
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
     const title = newEl("h4", { class: "title", innerText: patch.title });
@@ -366,28 +408,83 @@ async function loadHSPatchNotes() {
     container.appendChild(card);
   });
 }
-// async function loadOWPatchNotes(url) {
-//   // endDateFormat = "/" + endDate.replace(/-/g, "/").slice(0, 7);
 
-//   const res = await fetch("http://localhost:3000/patchNotesOW");
-//   const patchNotes = await res.json();
-//   console.log(patchNotes);
+async function loadOWPatchNotes(url) {
+  // endDateFormat = "/" + endDate.replace(/-/g, "/").slice(0, 7);
 
-//   const container = document.querySelector(".card-container");
+  const res = await fetch("http://localhost:3000/patchNotesOW");
+  const patchNotes = await res.json();
+  ow.classList.remove("animate");
+  logoContainer.classList.add("hide");
+  tipsBottom.querySelector("p").style.animation = "fade-out 1.2s ease-out";
+  tipsBottom.classList.add("hide");
+  tipsTop.classList.remove("hide");
+  pLogo.classList.add("hide");
 
-//   patchNotes.forEach((patch) => {
-//     const card = newEl("div", { class: "card" });
-//     const title = newEl("h4", { innerText: patch.title });
-//     const link = newEl("a", {
-//       href: `${url}${endDateFormat}`,
-//     });
-//     const img = newEl("img", { src: "./assets/doomfist-screenshot-004.jpeg" });
-//     img.style.width = "393px";
-//     img.style.height = "221px";
+  // tips.remove();
+  banner.classList.remove("hide");
+  banner.innerHTML = `
+  <img src="imgs/owbanner.png" alt="">
+        <h1>Overwatch</h1>
+        <h2>Overwatch is a vibrant team-based shooter set on a near-future earth.</h2>
+        <ul class="social-media">
+            <li>
+                <a class="website" target="_blank" href="https://playoverwatch.com/en-gb/">
+                    <i class="fas fa-globe-americas"></i>
+                </a>
+            </li>
+            <li>
+                <a class="twitter" target="_blank" href="https://twitter.com/playoverwatch">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a class="twitch" target="_blank" href="https://www.twitch.tv/directory/game/Overwatch">
+                    <i class="fab fa-twitch"></i>
+                </a>
+            </li>
+            <li>
+                <a class="youtube" target="_blank" href="https://www.youtube.com/PlayOverwatch">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </li>
+        </ul>
+  `;
 
-//     link.appendChild(img);
-//     card.appendChild(title);
-//     card.appendChild(link);
-//     container.appendChild(card);
-//   });
-// }
+  const container = document.querySelector(".card-container");
+  container.innerHTML = "";
+  container.classList.remove("hide");
+
+  tipsTop.innerHTML = `<p>You've missed ${
+    patchNotes.length > 1 ? patchNotes.length + " patches" : "1 patch"
+  } since you left.
+  </p>`;
+
+  if (patchNotes.length === 1) {
+    tipsTop.style.transform = "translateY(6rem)";
+  }
+
+  if (patchNotes.length === 0) {
+    tipsTop.style.transform = "translateY(5rem)";
+    tipsTop.innerHTML = "<p>You've missed no patches since you left<p>";
+  }
+
+  patchNotes.forEach((patch) => {
+    const card = newEl("div", { class: "card" });
+    const title = newEl("h4", { class: "title", innerText: patch.title });
+    const link = newEl("a", {
+      // href: `${url}${endDateFormat}`,
+      href: patch.link,
+      innerText: "View Patch >",
+      target: "_blank",
+    });
+    const img = newEl("img", { src: `/imgs/${owImgs[owNum]}` });
+    const div = newEl("div");
+
+    div.appendChild(title);
+    div.appendChild(link);
+    card.appendChild(div);
+    card.appendChild(img);
+    container.appendChild(card);
+  });
+}

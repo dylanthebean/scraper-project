@@ -76,24 +76,22 @@ app.get("/patchNotesHS", async (req, res) => {
   res.send(result);
 });
 
-// app.get("/patchNotesOW", async (req, res) => {
-//   let endDateFormat = "/" + endDate.replace(/-/g, "/").slice(0, 7);
+app.get("/patchNotesOW", async (req, res) => {
+  endDateFormat = "/" + endDate.replace(/-/g, "/").slice(0, 7);
 
-// console.log(endDate);
+  const patchNotes = await scraper.scrapeOverwatchPatches(
+    `https://playoverwatch.com/en-gb/news/patch-notes/live${endDateFormat}`
+    // `https://playoverwatch.com/en-gb/news/patch-notes/live`
+  );
 
-//   const patchNotes = await scraper.scrapeOverwatchPatches(
-//     `https://playoverwatch.com/en-gb/news/patch-notes/live${endDateFormat}`
-//     // `https://playoverwatch.com/en-gb/news/patch-notes/live`
-//   );
+  const result = patchNotes.patchNotes.filter((patch) => {
+    const ed = new Date(endDate);
 
-//   const result = patchNotes.patchNotes.filter((patch) => {
-//     const ed = new Date(endDate);
+    return patch.date > ed;
+  });
 
-//     return patch.date > ed;
-//   });
-
-//   res.send(result);
-// });
+  res.send(result);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

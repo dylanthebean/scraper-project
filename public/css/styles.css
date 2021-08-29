@@ -184,15 +184,13 @@ h4 {
 }
 
 .hide {
-  display: none;
   opacity: 0;
-  /* visibility: hidden; */
+  display: none;
 }
 
 .end-date {
-  /* max-width: 25%; */
   align-self: center;
-  margin: 0 2rem 4rem;
+  margin: 0 2rem 2rem;
   z-index: 99;
 }
 
@@ -261,6 +259,15 @@ nav {
   z-index: 99;
 }
 
+.error-prompt {
+  z-index: 100;
+  margin-bottom: 0.5rem;
+  transition: opacity 0.3s ease-in;
+  color: #9a1d36;
+  font-weight: 700;
+  font-size: 12px;
+}
+
 .p-logo {
   margin: 0 auto;
   margin-top: 10rem;
@@ -268,11 +275,6 @@ nav {
   margin-bottom: 2rem;
   width: 45px;
   height: 45px;
-}
-
-.chosen-game {
-  width: max-content;
-  margin: 0 auto;
 }
 
 .tips-container {
