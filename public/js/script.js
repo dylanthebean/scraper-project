@@ -51,6 +51,9 @@ lol.addEventListener("click", () => {
   hs.classList.add("hide");
   ow.classList.add("hide");
   datePicker.classList.remove("hide");
+  pLogo.classList.remove("hide");
+  question.innerText = "When did you last play?";
+  overlay.classList.remove("hide");
   islol = true;
 });
 wow.addEventListener("click", () => {
@@ -58,6 +61,9 @@ wow.addEventListener("click", () => {
   hs.classList.add("hide");
   ow.classList.add("hide");
   datePicker.classList.remove("hide");
+  pLogo.classList.remove("hide");
+  question.innerText = "When did you last play?";
+  overlay.classList.remove("hide");
   iswow = true;
 });
 hs.addEventListener("click", () => {
@@ -65,6 +71,9 @@ hs.addEventListener("click", () => {
   lol.classList.add("hide");
   ow.classList.add("hide");
   datePicker.classList.remove("hide");
+  pLogo.classList.remove("hide");
+  question.innerText = "When did you last play?";
+  overlay.classList.remove("hide");
   ishs = true;
 });
 ow.addEventListener("click", () => {
@@ -72,6 +81,9 @@ ow.addEventListener("click", () => {
   hs.classList.add("hide");
   lol.classList.add("hide");
   datePicker.classList.remove("hide");
+  pLogo.classList.remove("hide");
+  question.innerText = "When did you last play?";
+  overlay.classList.remove("hide");
   isow = true;
 });
 
@@ -79,6 +91,10 @@ datePicker.addEventListener("change", () => {
   submitDate();
   startAnimate();
   datePicker.classList.add("hide");
+  // pLogo.classList.add("hide");
+  tipsBottom.classList.remove("hide");
+  question.classList.add("hide");
+  overlay.classList.add("hide");
 });
 
 function newEl(type, attrs = {}) {
@@ -141,11 +157,54 @@ async function loadLoLPatchNotes(url) {
   const res = await fetch("/patchNotesLoL");
   const patchNotes = await res.json();
   lol.classList.remove("animate");
-  tips.querySelector("p").style.animation = "fade-out 1.2s ease-out";
+  logoContainer.classList.add("hide");
+  tipsBottom.querySelector("p").style.animation = "fade-out 1.2s ease-out";
+  tipsBottom.classList.add("hide");
+  tipsTop.classList.remove("hide");
+  pLogo.classList.add("hide");
   // tips.remove();
+
+  banner.classList.remove("hide");
+  banner.innerHTML = `
+  <img src="imgs/lolbanner.png" alt="">
+        <h1>League of Legends</h1>
+        <h2>League of Legends is a team-based game with over 140 champions to make epic plays with.</h2>
+        <ul class="social-media">
+            <li>
+                <a class="website" target="_blank" href="https://www.leagueoflegends.com/en-gb/">
+                    <i class="fas fa-globe-americas"></i>
+                </a>
+            </li>
+            <li>
+                <a class="twitter" target="_blank" href="https://twitter.com/leagueoflegends">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a class="twitch" target="_blank" href="https://www.twitch.tv/directory/game/League%20of%20Legends">
+                    <i class="fab fa-twitch"></i>
+                </a>
+            </li>
+            <li>
+                <a class="youtube" target="_blank" href="https://www.youtube.com/user/riotgamesinc">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </li>
+        </ul>
+  `;
 
   const container = document.querySelector(".card-container");
   container.innerHTML = "";
+  container.classList.remove("hide");
+
+  tipsTop.innerHTML = `<p>You've missed ${
+    patchNotes.length > 1 ? patchNotes.length + " patches" : "1 patch"
+  } since you left.
+  </p>`;
+
+  if (patchNotes.length === 1) {
+    tipsTop.style.transform = "translateY(6rem)";
+  }
 
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
@@ -153,6 +212,7 @@ async function loadLoLPatchNotes(url) {
     const link = newEl("a", {
       href: `${url}${patch.link}`,
       innerText: "View Patch >",
+      target: "_blank",
     });
     const img = newEl("img", { src: patch.img });
     const div = newEl("div");
@@ -168,11 +228,54 @@ async function loadWoWPatchNotes(url) {
   const res = await fetch("/patchNotesWoW");
   const patchNotes = await res.json();
   wow.classList.remove("animate");
-  // tips.style.animation = "fade-out 1.2s ease-out";
+  logoContainer.classList.add("hide");
+  tipsBottom.querySelector("p").style.animation = "fade-out 1.2s ease-out";
+  tipsBottom.classList.add("hide");
+  tipsTop.classList.remove("hide");
+  pLogo.classList.add("hide");
   // tips.remove();
+
+  banner.classList.remove("hide");
+  banner.innerHTML = `
+  <img src="imgs/wowbanner.png" alt="">
+        <h1>World of Warcraft</h1>
+        <h2>Join thousands of mighty heroes in Azeroth, a world of magic and limitless adventure.</h2>
+        <ul class="social-media">
+            <li>
+                <a class="website" target="_blank" href="https://worldofwarcraft.com/en-us/">
+                    <i class="fas fa-globe-americas"></i>
+                </a>
+            </li>
+            <li>
+                <a class="twitter" target="_blank" href="https://twitter.com/warcraft">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a class="twitch" target="_blank" href="https://www.twitch.tv/directory/game/World%20of%20Warcraft">
+                    <i class="fab fa-twitch"></i>
+                </a>
+            </li>
+            <li>
+                <a class="youtube" target="_blank" href="https://www.youtube.com/user/WorldofWarcraft">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </li>
+        </ul>
+  `;
 
   const container = document.querySelector(".card-container");
   container.innerHTML = "";
+  container.classList.remove("hide");
+
+  tipsTop.innerHTML = `<p>You've missed ${
+    patchNotes.length > 1 ? patchNotes.length + " patches" : "1 patch"
+  } since you left.
+  </p>`;
+
+  if (patchNotes.length === 1) {
+    tipsTop.style.transform = "translateY(6rem)";
+  }
 
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
@@ -180,6 +283,7 @@ async function loadWoWPatchNotes(url) {
     const link = newEl("a", {
       href: `${url}${patch.link}`,
       innerText: "View Patch >",
+      target: "_blank",
     });
     const img = newEl("img", { src: patch.img });
     const div = newEl("div");
@@ -195,11 +299,54 @@ async function loadHSPatchNotes() {
   const res = await fetch("/patchNotesHS");
   const patchNotes = await res.json();
   hs.classList.remove("animate");
-  // tips.style.animation = "fade-out 1.2s ease-out";
+  logoContainer.classList.add("hide");
+  tipsBottom.querySelector("p").style.animation = "fade-out 1.2s ease-out";
+  tipsBottom.classList.add("hide");
+  tipsTop.classList.remove("hide");
+  pLogo.classList.add("hide");
+
   // tips.remove();
+  banner.classList.remove("hide");
+  banner.innerHTML = `
+  <img src="imgs/hsbanner.png" alt="">
+        <h1>Hearthstone</h1>
+        <h2>Hearthstone is a fast-paced strategy card game from Blizzard Entertainment.</h2>
+        <ul class="social-media">
+            <li>
+                <a class="website" target="_blank" href="https://playhearthstone.com/en-us">
+                    <i class="fas fa-globe-americas"></i>
+                </a>
+            </li>
+            <li>
+                <a class="twitter" target="_blank" href="https://twitter.com/PlayHearthstone">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a class="twitch" target="_blank" href="https://www.twitch.tv/directory/game/Hearthstone">
+                    <i class="fab fa-twitch"></i>
+                </a>
+            </li>
+            <li>
+                <a class="youtube" target="_blank" href="https://www.youtube.com/Hearthstone">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </li>
+        </ul>
+  `;
 
   const container = document.querySelector(".card-container");
   container.innerHTML = "";
+  container.classList.remove("hide");
+
+  tipsTop.innerHTML = `<p>You've missed ${
+    patchNotes.length > 1 ? patchNotes.length + " patches" : "1 patch"
+  } since you left.
+  </p>`;
+
+  if (patchNotes.length === 1) {
+    tipsTop.style.transform = "translateY(6rem)";
+  }
 
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
@@ -207,6 +354,7 @@ async function loadHSPatchNotes() {
     const link = newEl("a", {
       href: patch.link,
       innerText: "View Patch >",
+      target: "_blank",
     });
     const img = newEl("img", { src: patch.img });
     const div = newEl("div");
