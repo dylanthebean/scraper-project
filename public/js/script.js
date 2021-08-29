@@ -3,12 +3,15 @@ const lol = document.querySelector(".lol");
 const wow = document.querySelector(".wow");
 const hs = document.querySelector(".hs");
 const ow = document.querySelector(".ow");
-const tips = document.querySelector(".tips-container");
+const tipsBottom = document.querySelector(".tips-container__bottom");
+const tipsTop = document.querySelector(".tips-container__top");
 const question = document.querySelector(".question");
 const chosenGame = document.querySelector(".chosen-game");
 const logoCard = document.querySelector(".logo-container__card");
 const logoContainer = document.querySelector(".logo-container");
 const pLogo = document.querySelector(".p-logo");
+const banner = document.querySelector(".banner");
+const overlay = document.querySelector(".overlay");
 
 let lolLoadingTips = [
   "You can place Wards and drink Potions while channeling a spell, such as Recall.",
@@ -92,20 +95,20 @@ function startAnimate() {
   if (islol) {
     lol.classList.add("animate");
     let tip = newEl("p", { innerText: lolLoadingTips[randNum] });
-    tips.innerHTML = "";
-    tips.appendChild(tip);
+    tipsBottom.innerHTML = "";
+    tipsBottom.appendChild(tip);
   }
   if (iswow) {
     wow.classList.add("animate");
     let tip = newEl("p", { innerText: wowLoadingTips[randNum] });
-    tips.innerHTML = "";
-    tips.appendChild(tip);
+    tipsBottom.innerHTML = "";
+    tipsBottom.appendChild(tip);
   }
   if (ishs) {
     hs.classList.add("animate");
     let tip = newEl("p", { innerText: hsLoadingTips[randNum] });
-    tips.innerHTML = "";
-    tips.appendChild(tip);
+    tipsBottom.innerHTML = "";
+    tipsBottom.appendChild(tip);
   }
 }
 
@@ -139,24 +142,25 @@ async function loadLoLPatchNotes(url) {
   const patchNotes = await res.json();
   lol.classList.remove("animate");
   tips.querySelector("p").style.animation = "fade-out 1.2s ease-out";
-  tips.remove();
+  // tips.remove();
 
   const container = document.querySelector(".card-container");
   container.innerHTML = "";
 
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
-    const title = newEl("h4", { innerText: patch.title });
+    const title = newEl("h4", { class: "title", innerText: patch.title });
     const link = newEl("a", {
       href: `${url}${patch.link}`,
+      innerText: "View Patch >",
     });
     const img = newEl("img", { src: patch.img });
-    img.style.width = "393px";
-    img.style.height = "221px";
+    const div = newEl("div");
 
-    link.appendChild(img);
-    card.appendChild(title);
-    card.appendChild(link);
+    div.appendChild(title);
+    div.appendChild(link);
+    card.appendChild(div);
+    card.appendChild(img);
     container.appendChild(card);
   });
 }
@@ -164,25 +168,26 @@ async function loadWoWPatchNotes(url) {
   const res = await fetch("/patchNotesWoW");
   const patchNotes = await res.json();
   wow.classList.remove("animate");
-  tips.style.animation = "fade-out 1.2s ease-out";
-  tips.remove();
+  // tips.style.animation = "fade-out 1.2s ease-out";
+  // tips.remove();
 
   const container = document.querySelector(".card-container");
   container.innerHTML = "";
 
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
-    const title = newEl("h4", { innerText: patch.title });
+    const title = newEl("h4", { class: "title", innerText: patch.title });
     const link = newEl("a", {
       href: `${url}${patch.link}`,
+      innerText: "View Patch >",
     });
     const img = newEl("img", { src: patch.img });
-    img.style.width = "393px";
-    img.style.height = "221px";
+    const div = newEl("div");
 
-    link.appendChild(img);
-    card.appendChild(title);
-    card.appendChild(link);
+    div.appendChild(title);
+    div.appendChild(link);
+    card.appendChild(div);
+    card.appendChild(img);
     container.appendChild(card);
   });
 }
@@ -190,25 +195,26 @@ async function loadHSPatchNotes() {
   const res = await fetch("/patchNotesHS");
   const patchNotes = await res.json();
   hs.classList.remove("animate");
-  tips.style.animation = "fade-out 1.2s ease-out";
-  tips.remove();
+  // tips.style.animation = "fade-out 1.2s ease-out";
+  // tips.remove();
 
   const container = document.querySelector(".card-container");
   container.innerHTML = "";
 
   patchNotes.forEach((patch) => {
     const card = newEl("div", { class: "card" });
-    const title = newEl("h4", { innerText: patch.title });
+    const title = newEl("h4", { class: "title", innerText: patch.title });
     const link = newEl("a", {
       href: patch.link,
+      innerText: "View Patch >",
     });
     const img = newEl("img", { src: patch.img });
-    img.style.width = "393px";
-    img.style.height = "221px";
+    const div = newEl("div");
 
-    link.appendChild(img);
-    card.appendChild(title);
-    card.appendChild(link);
+    div.appendChild(title);
+    div.appendChild(link);
+    card.appendChild(div);
+    card.appendChild(img);
     container.appendChild(card);
   });
 }
