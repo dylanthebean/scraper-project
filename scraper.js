@@ -169,6 +169,8 @@ async function scrapeOverwatchPatches(url) {
     window.scrollTo(0, 0);
   });
 
+  await scrollPageToBottom(page);
+
   while (
     page.url() !== "https://playoverwatch.com/en-gb/news/patch-notes/live"
   ) {
@@ -181,7 +183,6 @@ async function scrapeOverwatchPatches(url) {
   await scrollPageToBottom(page);
 
   const els = await page.$$(".PatchNotes-patch");
-  console.log(els);
 
   const patchNotes = [];
 
