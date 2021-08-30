@@ -1,6 +1,6 @@
 # Web Scraper Project
 
-![](public\imgs\patchfetch.png)
+![](public/imgs/patchfetch.png)
 
 Project I'm currently working on using the Headless Chrome Node.js API, Puppeteer.
 
