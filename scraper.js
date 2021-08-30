@@ -172,7 +172,7 @@ async function scrapeOverwatchPatches(url) {
   while (
     page.url() !== "https://playoverwatch.com/en-gb/news/patch-notes/live"
   ) {
-    // await scrollPageToBottom(page);
+    await scrollPageToBottom(page);
 
     await page.click(
       "#site > section > div.Container.PatchNotes-list > div.PatchNotes-body > div.PatchNotesPagination > a.PatchNotesPaginationLink.PatchNotesPaginationLink--next"
@@ -181,11 +181,20 @@ async function scrapeOverwatchPatches(url) {
   await scrollPageToBottom(page);
 
   const els = await page.$$(".PatchNotes-patch");
+  console.log(els);
 
   const patchNotes = [];
 
   for (let i = 0; i < els.length; i++) {
-    const h2 = await els[i].$eval("h3", (h) => h.innerText);
+    // const h2 = await els[i].$eval("h3", (h) => h.innerText);
+
+    let h2;
+
+    try {
+      h2 = await els[i].$eval(".PatchNotes-patchTitle", (h) => h.innerText);
+    } catch (error) {
+      console.log(error);
+    }
 
     const links = await els[i].getProperty("baseURI");
     const link = await links.jsonValue();

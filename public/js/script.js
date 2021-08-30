@@ -13,6 +13,8 @@ const pLogo = document.querySelector(".p-logo");
 const banner = document.querySelector(".banner");
 const overlay = document.querySelector(".overlay");
 const errorMsg = document.querySelector(".error-prompt");
+const searchText = document.querySelector(".search-text");
+const submitText = document.querySelector(".search button");
 
 let owImgs = ["ow1.jpeg", "ow2.jpg", "ow3.png"];
 let owNum = Math.floor(Math.random() * 3);
@@ -59,6 +61,63 @@ let islol = false;
 let iswow = false;
 let ishs = false;
 let isow = false;
+
+submitText.addEventListener("click", (e) => {
+  e.preventDefault();
+  const search = searchText.value.toLowerCase().replace(/\s/g, "");
+
+  lol.classList.add("hide");
+  wow.classList.add("hide");
+  hs.classList.add("hide");
+  ow.classList.add("hide");
+
+  if (search === "") {
+    lol.classList.remove("hide");
+    wow.classList.remove("hide");
+    hs.classList.remove("hide");
+    ow.classList.remove("hide");
+    pLogo.classList.add("hide");
+  }
+
+  if (
+    (search === "lol") |
+    (search === "league") |
+    (search === "leagueoflegends")
+  ) {
+    lol.classList.remove("hide");
+    wow.classList.add("hide");
+    hs.classList.add("hide");
+    ow.classList.add("hide");
+    pLogo.classList.remove("hide");
+  }
+  if (
+    (search === "wow") |
+    (search === "warcraft") |
+    (search === "worldofwarcraft")
+  ) {
+    lol.classList.add("hide");
+    wow.classList.remove("hide");
+    hs.classList.add("hide");
+    ow.classList.add("hide");
+    pLogo.classList.remove("hide");
+  }
+  if ((search === "hs") | (search === "hearthstone")) {
+    wow.classList.add("hide");
+    lol.classList.add("hide");
+    hs.classList.remove("hide");
+    ow.classList.add("hide");
+    pLogo.classList.remove("hide");
+  }
+  if ((search === "ow") | (search === "overwatch")) {
+    wow.classList.add("hide");
+    hs.classList.add("hide");
+    lol.classList.add("hide");
+    ow.classList.remove("hide");
+    pLogo.classList.remove("hide");
+  }
+
+  searchText.value = "";
+});
 
 lol.addEventListener("click", () => {
   wow.classList.add("hide");
@@ -424,7 +483,7 @@ async function loadOWPatchNotes(url) {
   // tips.remove();
   banner.classList.remove("hide");
   banner.innerHTML = `
-  <img src="imgs/owbanner.png" alt="">
+  <img src="imgs/owbanner.png" alt="" loading=lazy>
         <h1>Overwatch</h1>
         <h2>Overwatch is a vibrant team-based shooter set on a near-future earth.</h2>
         <ul class="social-media">

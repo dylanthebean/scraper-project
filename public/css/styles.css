@@ -233,6 +233,10 @@ nav {
   align-items: center;
 }
 
+.search {
+  position: relative;
+}
+
 .search-text {
   border: 1px solid #c4c4c4;
   outline: #000;
@@ -240,8 +244,22 @@ nav {
   padding: 0.5rem 2.5rem;
 }
 
-.search-icon {
-  transform: translateX(-2rem);
+.search-icon,
+.search button {
+  /* transform: translateX(-2rem); */
+  position: absolute;
+  right: 8px;
+  top: 5px;
+  cursor: pointer;
+}
+
+.search button {
+  width: 24px;
+  height: 24px;
+  right: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
 }
 
 .search-text::placeholder {
