@@ -1,6 +1,7 @@
 # Web Scraper Project
 
-![](public/imgs/patchfetch.png)
+https://user-images.githubusercontent.com/76619157/137594190-f368aa22-71d8-4ce9-9c03-8901ada8cb50.mp4
+
 
 Project I'm currently working on using the Headless Chrome Node.js API, Puppeteer.
 
